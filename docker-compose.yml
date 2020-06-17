@@ -1,0 +1,20 @@
+version: '2'
+services:
+  analytics:
+    container_name: garvan_vectis_analytics
+    image: dice-registry.ad.garvan.unsw.edu.au:5000/garvan_vectis_analytics
+    ports:
+      - "3321:3000"
+  db:
+    container_name: garvan_vectis_analytics_db
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - "3306:3306"
+    volumes:
+      - mydb:/var/lib/mysql
+      - ./mysql:/docker-entrypoint-initdb.d
+volumes:
+  mydb:
